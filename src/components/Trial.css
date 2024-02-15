@@ -1,0 +1,35 @@
+.lists{
+    padding: 10px;
+    width: 523px;
+    margin-top: 5px;
+}
+
+.inputs{
+    display: inline-grid;
+    margin-top: 100px;
+
+}
+.name{
+    text-align: left;
+    margin-top: 20px;
+}
+.list{
+    padding: 10px;
+    width: 500px;
+    margin-top: 10px;
+
+}
+
+.names{
+    text-align: left;
+     margin-top: 20px;
+
+}
+.enter{
+    width: 60px;
+    margin-top: 30px 
+}
+.head{
+
+    margin-top: -60px;
+}
