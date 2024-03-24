@@ -1,86 +1,241 @@
-import React, { useEffect, useState }  from "react";
-import './Trial.css';
-import axios from 'axios'
+import React, { useEffect, useState } from "react";
+import "./Trial.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Trial = () => {
-  
-  const [name, setName]=useState('');
-  const [age, setAge]=useState('');
-  const [selectedCountry, setSelectedCountry] = useState('');
-  const [selectedState, setSelectedState] = useState('');
-  const handleSubmit=(e)=>{
-    e.preventDefault();
-    const data = {
-      Name:name,
-      Age:age,
-      SelectedCountry:selectedCountry,
-      SelectedState:selectedState
+  const history = useNavigate();
+  const [name, setName] = useState("");
+  const [regno, setRegno] = useState("");
+  const [data, setData] = useState([]);
+  const [relatedData, setRelatedData] = useState([]);
+  const [selectedName, setSelectedName] = useState("");
+  const [selectedField, setSelectedField] = useState("");
+  const [newselectedField, setNewSelectedField] = useState("");
+  const [totalSeats, setTotalSeats] = useState(0);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [showChangeElectiveForm, setShowChangeElectiveForm] = useState(false);
+  const [adminRequestSent, setAdminRequestSent] = useState(false);
+
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  async function fetchData() {
+    try {
+      const response = await axios.post("http://localhost:8000/sendData", {});
+      if (response.data === "fail") {
+        alert("Failed to fetch data");
+      } else {
+        setData(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
-    axios.post('https://sheetdb.io/api/v1/qrek0ltl9zybl',data).then(response=>{
-      // console.log(response);
-      setName('');
-      setAge('');
-      setSelectedCountry('');
-      setSelectedState('');
-    })
-    alert("Your is Sucessfully Submitted");
   }
+
+  async function fetchRelatedData(selectedName) {
+    try {
+      const response = await axios.post("http://localhost:8000/fetchRelatedData", {
+        selectedName: selectedName,
+      });
+      if (response.data === "fail") {
+        alert("Failed to fetch related data");
+      } else {
+        setRelatedData(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching related data:", error);
+    }
+  }
+
+  const handleSelectChange = async (event) => {
+    const selectedValue = event.target.value;
+    setSelectedName(selectedValue);
+    await fetchRelatedData(selectedValue);
+  };
+
+  const handleButtonClick = (field) => {
+    setSelectedField(selectedField === field ? "" : field);
+
+    const selectedFieldData = relatedData.find((item) => item.field === field);
+    if (selectedFieldData) {
+      setTotalSeats(selectedFieldData.totalseats);
+    }
+  };
+  const handleButtonClick2 = (field) => {
+    setNewSelectedField(field === newselectedField ? "" : field);
   
-  const countries = [
-    { id: 1, name: 'CSE', states: ['Graphic Design', 'Basics of Data Science', 'Stories as Therapy', 'Development Studies', 'Environment and Sustainable Agriculture', 'Stories as Therapy', 'Python Programming', 'Psychology of Health and Wellbeing'] },
-    { id: 2, name: 'AIML', states: ['Graphic Design', 'Basics of Data Science', 'Stories as Therapy', 'Development Studies', 'Environment and Sustainable Agriculture', 'Stories as Therapy', 'Python Programming', 'Psychology of Health and Wellbeing']},
-    { id: 3, name: 'CCE', states: ['Graphic Design', 'Basics of Data Science', 'Stories as Therapy', 'Development Studies', 'Environment and Sustainable Agriculture', 'Stories as Therapy', 'Python Programming', 'Psychology of Health and Wellbeing'] },
-    { id: 4, name: 'Mechanial', states: ['Graphic Design', 'Basics of Data Science', 'Stories as Therapy', 'Development Studies', 'Environment and Sustainable Agriculture', 'Stories as Therapy', 'Python Programming', 'Psychology of Health and Wellbeing'] },
-    { id: 5, name: 'Electronics', states: ['Graphic Design', 'Basics of Data Science', 'Stories as Therapy', 'Development Studies', 'Environment and Sustainable Agriculture', 'Stories as Therapy', 'Python Programming', 'Psychology of Health and Wellbeing'] },
-    { id: 6, name: 'Electrical', states: ['Graphic Design', 'Basics of Data Science', 'Stories as Therapy', 'Development Studies', 'Environment and Sustainable Agriculture', 'Stories as Therapy', 'Python Programming', 'Psychology of Health and Wellbeing'] }
-  ];
+    const selectedFieldData = relatedData.find((item) => item.field === field);
+    if (selectedFieldData) {
+      setTotalSeats(selectedFieldData.totalseats);
+    }
+  };
+  
 
-  const handleCountryChange = (e) => {
-    const selectedCountry = e.target.value;
-    setSelectedCountry(selectedCountry);
-    setSelectedState('');
+  async function submit(e) {
+    e.preventDefault();
+
+    try {
+      await axios.post("http://localhost:8000/first", {
+        name,
+        regno,
+        selectedField,
+        selectedName,
+        totalSeats,
+      });
+      setFormSubmitted(true);
+    } catch (error) {
+      console.error("Error submitting data:", error);
+      alert("Failed to submit data");
+    }
+  }
+  async function submit2(e) {
+    e.preventDefault();
+
+    try {
+      await axios.post("http://localhost:8000/second", {
+        name,
+        regno,
+        selectedField,
+        newselectedField
+      });
+      setAdminRequestSent(true); // Update state when admin request is sent
+    } catch (error) {
+      console.error("Error submitting data:", error);
+      alert("Failed to submit data");
+    }
+  }
+
+  const clearForm = () => {
+    setName("");
+    setRegno("");
+    setSelectedName("");
+    setSelectedField("");
+    setRelatedData([]);
+    setTotalSeats(0);
+    setFormSubmitted(false);
   };
 
-  const handleStateChange = (e) => {
-    const selectedState = e.target.value;
-    setSelectedState(selectedState);
+  const handleOpenElectiveChange = () => {
+    setShowChangeElectiveForm(true);
   };
+
 
   return (
-    <div className="inputs">
-      <h1 className="head">Open Elective Form</h1>
-      <form autoComplete="off" className="form-group" onSubmit={handleSubmit}>
-         
-      <p className="name">Name</p>
-      <input className="list" type="text" 
-      onChange={(e)=>setName(e.target.value)} value={name}/>
-      <p className="name">Reg_No</p>
-      <input className="list" type="text" onChange={(e)=>setAge(e.target.value)} value={age} />
+    <div className="container">
       <div>
+        <h2>{formSubmitted ? "Form Submitted Successfully!" : "Open Elective Form"}</h2>
+        {!formSubmitted && !adminRequestSent && (
+          <form onSubmit={submit}>
+            <div className="input-container">
+              <label>Name</label>
+              <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" />
+            </div>
+            <div className="input-container">
+              <label>Registration Number</label>
+              <input type="text" value={regno} onChange={(e) => setRegno(e.target.value)} placeholder="Regno" />
+            </div>
 
-      <p className="names">Branch</p>
-      <select className="lists" onChange={handleCountryChange} value={selectedCountry}>
-        <option value="" >Select Branch</option>
-        {countries.map(country => (
-          <option key={country.id} value={country.name} >{country.name}</option>
-          ))}
-      </select>
-        </div>
+            <div className="select-container">
+              <label>Select Branch</label>
+              <select value={selectedName} onChange={handleSelectChange}>
+                <option value="">Select a name</option>
+                {data.map((e) => (
+                  <option key={e._id} value={e.name}>
+                    {e.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="radio-container">
+              {relatedData.length > 0 && (
+                <div>
+                  {relatedData.map((e, index) => (
+                    <div key={index}>
+                      <button
+                        className={selectedField === e.field ? "selected" : ""}
+                        onClick={() => handleButtonClick(e.field)}
+                        type="button" // Prevent form submission
+                      >
+                        {e.field} ({e.totalseats} seats)
+                      </button>
+                      {selectedField === e.field && (
+                        <div className="description">
+                          <h2>{e.field}</h2>
+                          <p>{e.description}</p>
+                          <button class="bope">Confirm</button>
 
-      {selectedCountry && (
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div className="button-container">
+              <button type="submit">Submit</button>
+            </div>
+          </form>
+        )}
+        {formSubmitted && !adminRequestSent && (
+          <div className="button-container">
+            <button onClick={handleOpenElectiveChange}>Change Open Elective</button>
+          </div>
+        )}
+        {adminRequestSent && (
+          <div>
+            <p>Request sent to the admin.</p>
+            <div className="button-container">
+              <button onClick={() => history("/")}>Go Back to Home</button>
+            </div>
+          </div>
+        )}
+      </div>
+      {showChangeElectiveForm && (
         <div>
-       <p className="names">Open_elective</p>
-       <select className="lists" onChange={handleStateChange} value={selectedState}>
-            <option value="">Select OpenElective</option>
-            {countries.find(country => country.name === selectedCountry)?.states.map(state => (
-              <option key={state} value={state}>{state}</option>
-              ))}
-          </select>
-          
+          <h2>Change Open Elective</h2>
+          <form onSubmit={submit2}>
+            <div className="input-container">
+              <label>Existing Elective Choice</label>
+              <input
+                type="text"
+                value={selectedField}
+                onChange={(e) => setSelectedField(e.target.value)}
+                placeholder="New Elective"
+              />
+            </div>
+            <div className="radio-container">
+              {relatedData.length > 0 && (
+                <div>
+                  {relatedData.map((e, index) => (
+  <div key={index}>
+    <button
+      className={newselectedField === e.field ? "selected" : ""}
+      onClick={() => handleButtonClick2(e.field)}
+      type="button"
+    >
+      {e.field} ({e.totalseats} seats)
+    </button>
+    {newselectedField === e.field && (
+      <div className="description">
+        <h2>{e.field}</h2>
+        <p>{e.description}</p>
+        <button className="bope">Confirm</button>
+      </div>
+    )}
+  </div>
+))}
+                </div>
+              )}
+            </div>
+            <div className="button-container">
+              <button className="elebun" type="submit">Submit</button>
+            </div>
+          </form>
         </div>
       )}
-<button className="enter" type="submit">Submit</button>
-      </form>
     </div>
   );
 };

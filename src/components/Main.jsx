@@ -6,10 +6,12 @@ import './Main.css';
 
 
 
+
+
 const Main = () => {
   return (
     <div className="box">
-    <Trial />
+    <Trial/>
 
     </div>
   );

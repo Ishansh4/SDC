@@ -1,0 +1,276 @@
+/* Home.css */
+
+/* Style for the outer container */
+.container {
+    margin: 20px auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 800px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: auto; /* Add scrollbar if content overflows */
+  }
+  
+  /* Style for the table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  /* Style for table headers */
+  th {
+    background-color: #f2f2f2;
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  /* Style for table cells */
+  td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  /* Style for table rows */
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  /* Style for table rows on hover */
+  tr:hover {
+    background-color: #e9e9e9;
+  }
+/* Admin.css */
+/* Navbar styles */
+.navbar {
+    background-color: rgb(255, 255, 255);
+    padding: 10px;
+    overflow: hidden;
+    z-index: 10;
+
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%; /* Full width */
+    display: flex;
+  }
+  
+  .navbar h1 {
+margin-right: 50px;
+color: #f79d73;
+  }
+  
+  /* Side panel styles */
+  .sidepanel {
+    width: 270px;
+    height: 100%;
+    background-color: rgb(194, 99, 52);
+    position: fixed;
+
+  }
+  
+  .sidepanel h2 {
+    margin-top: 0;
+  }
+  
+  /* Main content styles */
+  .main-content {
+    margin-left: 220px; /* Adjust this to accommodate side panel width */
+    padding: 20px;
+  }
+  
+  /* Table styles */
+  table {
+
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+    color: rgb(0, 0, 0);
+  }
+  
+  tr:nth-child(even) {
+    background-color: #eec5b2;
+  }
+  
+  tr:hover {
+    background-color: #ddd;
+  }
+
+  .inside{    
+    left: 291px;
+    top: 36px;
+    overflow: scroll;
+    width: 1132px;
+    height: 391px;
+    margin-top: -20px;
+    border-radius: 20px;
+
+}
+.stu{    position: absolute;
+    left: 291px;
+    top: 36px;
+    background-color: rgb(255, 255, 255);
+    margin-top: 60px;
+    border-radius: 20px;
+
+}
+.stu2{
+    position: absolute;
+    left: 291px;
+    top: 510px;
+    background-color: rgb(255, 255, 255);
+    margin-top: 35px;
+    border-radius: 20px;
+    margin-bottom: 50px;
+
+}
+.inside2{
+    overflow: scroll;
+    width: 650px;
+    height: 350px;
+    margin-top: -20px;
+    border-radius: 20px;
+
+}
+
+.stu3{
+    position: absolute;
+    left: 956px;
+    top: 510px;
+    background-color: rgb(255, 255, 255);
+    margin-top: 35px;
+    border-radius: 20px;
+    margin-bottom: 50px;
+
+
+}
+.inside3{
+    overflow: scroll;
+    width: 467px;
+    height: 350px;
+    margin-top: -20px;
+    border-radius: 20px;
+
+
+}
+th{
+    text-align: center;
+}
+
+/* Admin.css */
+/* Navbar styles */
+.navbar {
+  background-color: rgb(255, 255, 255);
+
+  overflow: hidden;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between; /* Align items to the left and right */
+  align-items: center; /* Vertically center items */
+}
+
+.left {
+  display: flex;
+  align-items: center; /* Vertically center items */
+}
+
+.logo {
+  width: 170px; /* Adjust as needed *//* Adjust as needed */
+  margin-right: 10px; /* Adjust as needed */
+}
+
+.menu {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu li {
+  display: inline;
+  margin-right: 20px;
+}
+
+.menu li a {
+  text-decoration: none;
+  color: black;
+}
+
+.menu li a:hover {
+  color: rgb(249, 164, 84);
+}
+
+.right {
+  text-align: right;
+}
+.side-button {
+  background: none;
+  border: none;
+/* Increase padding for bigger buttons */
+padding: 33px 10px 33px 10px;
+font-size: 20px;
+
+
+
+  cursor: pointer;
+
+  color: #000; /* Change the color as needed */
+
+  display: block; /* Ensure buttons are displayed as block elements */
+  width: 100%; /* Make buttons full width */
+  text-align: center; /* Align button text to the left */
+  margin-bottom: 10px;
+   /* Add margin between buttons */
+}
+.side-button:hover{
+  background-color: #802900;
+}
+
+/* Side panel styles */
+.sidepanel {
+  width: 270px;
+  height: 100%;
+  background-color: rgb(194, 99, 52);
+  position: fixed;
+  margin-top: 88px;
+}
+
+.sidepanel h2 {
+  margin-top: 0;
+}
+
+/* Main content styles */
+.main-content {
+  margin-left: 220px;
+  padding: 20px;
+}
+
+/* Table styles */
+table {
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+th {
+  background-color: #f2f2f2;
+  color: rgb(0, 0, 0);
+}
+
+tr:nth-child(even) {
+  background-color: #eec5b2;
+}
+
+tr:hover {
+  background-color: #ddd;
+}
