@@ -7,6 +7,7 @@ const Trial = () => {
   const history = useNavigate();
   const [name, setName] = useState("");
   const [regno, setRegno] = useState("");
+  const [cgpa, setCGPA] = useState(""); // Added CGPA state
   const [data, setData] = useState([]);
   const [relatedData, setRelatedData] = useState([]);
   const [selectedName, setSelectedName] = useState("");
@@ -35,10 +36,12 @@ const Trial = () => {
     }
   }
 
+
   async function fetchRelatedData(selectedName) {
     try {
       const response = await axios.post("http://localhost:8000/fetchRelatedData", {
         selectedName: selectedName,
+        cgpa: cgpa // Pass CGPA to backend
       });
       if (response.data === "fail") {
         alert("Failed to fetch related data");
@@ -49,6 +52,7 @@ const Trial = () => {
       console.error("Error fetching related data:", error);
     }
   }
+
 
   const handleSelectChange = async (event) => {
     const selectedValue = event.target.value;
@@ -137,7 +141,10 @@ const Trial = () => {
               <label>Registration Number</label>
               <input type="text" value={regno} onChange={(e) => setRegno(e.target.value)} placeholder="Regno" />
             </div>
-
+            <div className="input-container">
+              <label>CGPA</label>
+              <input type="text" value={cgpa} onChange={(e) => setCGPA(e.target.value)} placeholder="CGPA" />
+            </div>
             <div className="select-container">
               <label>Select Branch</label>
               <select value={selectedName} onChange={handleSelectChange}>
@@ -165,6 +172,8 @@ const Trial = () => {
                         <div className="description">
                           <h2>{e.field}</h2>
                           <p>{e.description}</p>
+                          <h5>Faculty : {e.faculty}</h5>
+                          <h5>Email ID : {e.faculty_id}</h5>
                           <button class="bope">Confirm</button>
 
                         </div>

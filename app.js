@@ -16,6 +16,9 @@ app.use(cors())
 
 
 
+
+
+
 app.get("/",cors(),(req,res)=>{
 
 })
@@ -81,14 +84,19 @@ app.post("/sendData", async (req, res) => {
 
 app.post("/fetchRelatedData", async (req, res) => {
     try {
-        const selectedName = req.body.selectedName;
-        const relatedData = await collection2.find({ name: selectedName });
-        res.json(relatedData);
+      const selectedName = req.body.selectedName;
+      const cgpa = req.body.cgpa; // Retrieve CGPA from request body
+      const relatedData = await collection2.find({ 
+        name: selectedName,
+        min_cgpa: { $lte: cgpa } // Filter by minimum CGPA less than or equal to provided CGPA
+      });
+      res.json(relatedData);
     } catch (error) {
-        res.json("fail");
-        console.log(error);
+      res.json("fail");
+      console.log(error);
     }
-});
+  });
+  
 
 
 
@@ -175,4 +183,3 @@ app.post("/second",async(req,res)=>{
 app.listen(8000,()=>{
     console.log("port connected");
 })
-

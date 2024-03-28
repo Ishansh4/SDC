@@ -1,0 +1,38 @@
+.ch {
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    top: 22%;
+    left: 29%;
+    width: 64%;
+    height: 70%;
+    border-radius: 20px;
+}
+
+.nav {
+    margin-bottom: 10%;
+}
+
+.list {
+    display: grid;
+    gap: 20px;
+    margin-top: 8%; /* Add gap between grid items */
+}
+
+/* Style for buttons */
+.list button {
+    background-color: #ffffff; /* Set button background color */
+    color: rgb(0, 0, 0); /* Set button text color */
+    border: none; /* Remove button border */
+    border-radius: 10px; /* Apply border radius */
+    padding: 15px 20px; /* Add padding to button */
+    cursor: pointer; 
+    width: 97%;
+ text-align: left;
+    font-size: 20px;
+
+}
+
+.list button:hover {
+    background-color: #ffaa7c;
+    color: black;/* Change background color on hover */
+}

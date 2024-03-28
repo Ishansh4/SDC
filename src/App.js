@@ -3,11 +3,8 @@ import First from './components/First';
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Admin from "./components/Admin";
-
-
-
-
-
+import Home from "./components/Home";
+import Assign from "./components/Assign";
 
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -19,10 +16,13 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-          <Route path='/first' element={<First />}/>
+
           <Route path='/admin' element={<Admin />}/>
+          <Route path='/first' element={<First />}/>
+          <Route path='/home' element={<Home />}/>
           <Route path="/" element={<Login />}/>
           <Route path="/signup" element={<Signup />}/>
+          <Route path="/assign" element={<Assign />}/>
         </Routes>
       </Router>
     </div>

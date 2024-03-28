@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 mongoose.connect("mongodb+srv://taunkishansh:c0AiWU5njC64WjY5@manage.zwvngo6.mongodb.net/?retryWrites=true&w=majority")
 .then(()=>{
-    console.log("mongodb connected");
+    console.log("mongodb connected4");
 })
 
 .catch(()=>{

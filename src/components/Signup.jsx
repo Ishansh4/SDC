@@ -23,6 +23,7 @@ function Login() {
                 }
                 else if(res.data=="notexist"){
                     history("/first",{state:{id:email}})
+                    history("/home",{state:{id:email}})
                 }
             })
             .catch(e=>{

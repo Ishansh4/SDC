@@ -16,6 +16,7 @@ function Login() {
                 .then(res => {
                     if (res.data === "exist") {
                         history("/first", { state: { id: email } });
+                        history("/home", { state: { id: email } });
                     } else if (res.data === "notexist") {
                         alert("User has not signed up");
                     }
